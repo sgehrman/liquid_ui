@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await HiveUtils.init();
+  await HiveUtils.init(); // test
 
   runApp(MyApp());
 }
