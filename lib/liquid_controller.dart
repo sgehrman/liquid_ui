@@ -4,9 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_shared/flutter_shared.dart';
 import 'package:liquid_ui/liquid_device.dart';
-
-// --speed
-// slowest, slower, normal, faster and fastest
+import 'package:liquid_ui/speed_menu.dart';
 
 class LiquidController extends ChangeNotifier {
   LiquidController() {
@@ -16,8 +14,17 @@ class LiquidController extends ChangeNotifier {
   String _result = '';
   int _exitCode = 0;
   final List<LiquidDevice> _devices = [];
+  AnimationSpeedMenuItem _selectedItem = AnimationSpeedMenuItem.defaultMenuItem;
 
+  // getters
   List<LiquidDevice> get devices => _devices;
+  AnimationSpeedMenuItem get selectedItem => _selectedItem;
+  set selectedItem(AnimationSpeedMenuItem item) {
+    _selectedItem = item;
+
+    notifyListeners();
+  }
+
   String get result => _result;
   int get exitCode => _exitCode;
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shared/flutter_shared_web.dart';
 import 'package:liquid_ui/liquid_controller.dart';
 import 'package:liquid_ui/liquid_device.dart';
+import 'package:liquid_ui/speed_menu.dart';
 import 'package:liquid_ui/two_colors.dart';
 import 'package:provider/provider.dart';
 
@@ -85,6 +86,12 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
       spacing: 12,
       runSpacing: 12,
       children: [
+        AnimationSpeedMenu(
+          selectedItem: lc.selectedItem,
+          onItemSelected: (selected) {
+            lc.selectedItem = selected;
+          },
+        ),
         ElevatedButton(
           onPressed: () async {
             await lc.runCommand([
@@ -146,6 +153,8 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
               'led',
               'color',
               'spectrum-wave',
+              '--speed',
+              Utils.enumToString(lc.selectedItem.speed),
             ]);
           },
           child: const Text('Spectrum Wave'),
