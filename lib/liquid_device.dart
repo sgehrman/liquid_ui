@@ -32,8 +32,12 @@ class LiquidDevice {
     this.description,
   });
 
-  bool get isNZXTSmartDevice {
-    return description.contains('NZXT Smart Device');
+  bool get isNZXTSmartDeviceV1 {
+    return description.contains('NZXT Smart Device (V1)');
+  }
+
+  bool get isNZXTSmartDeviceV2 {
+    return description.contains('NZXT Smart Device (V2)');
   }
 
   Map<String, dynamic> toMap() {

@@ -4,6 +4,8 @@ For users of NZXT cases that are on linux and can't use the Cam software. Let's 
 
 Uses liquidctl [https://github.com/liquidctl/liquidctl](https://github.com/liquidctl/liquidctl)
 
+use this PR: 'git pull origin pull/314/head' version of liquidctl for now.
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.

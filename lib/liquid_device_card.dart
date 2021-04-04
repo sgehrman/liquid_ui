@@ -21,7 +21,7 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
   Color _endColor;
 
   Widget _buttonsForDevice(LiquidDevice device) {
-    if (device.isNZXTSmartDevice) {
+    if (device.isNZXTSmartDeviceV1 || device.isNZXTSmartDeviceV2) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -82,6 +82,12 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
     startHex = startHex.substring(2);
     endHex = endHex.substring(2);
 
+    String channel = 'led';
+
+    if (widget.device.isNZXTSmartDeviceV2) {
+      channel = 'sync';
+    }
+
     return Wrap(
       spacing: 12,
       runSpacing: 12,
@@ -100,11 +106,13 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
               '--address',
               widget.device.address,
               'set',
-              'led',
+              channel,
               'color',
               'breathing',
               startHex,
               endHex,
+              '--speed',
+              Utils.enumToString(lc.selectedItem.speed),
             ]);
           },
           child: const Text('Breathing'),
@@ -117,11 +125,13 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
               '--address',
               widget.device.address,
               'set',
-              'led',
+              channel,
               'color',
               'fading',
               startHex,
               endHex,
+              '--speed',
+              Utils.enumToString(lc.selectedItem.speed),
             ]);
           },
           child: const Text('Fading'),
@@ -134,7 +144,7 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
               '--address',
               widget.device.address,
               'set',
-              'led',
+              channel,
               'color',
               'fixed',
               startHex,
@@ -150,7 +160,7 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
               '--address',
               widget.device.address,
               'set',
-              'led',
+              channel,
               'color',
               'spectrum-wave',
               '--speed',
@@ -167,10 +177,12 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
               '--address',
               widget.device.address,
               'set',
-              'led',
+              channel,
               'color',
               'candle',
               startHex,
+              '--speed',
+              Utils.enumToString(lc.selectedItem.speed),
             ]);
           },
           child: const Text('Candle'),
@@ -183,10 +195,12 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
               '--address',
               widget.device.address,
               'set',
-              'led',
+              channel,
               'color',
               'wings',
               startHex,
+              '--speed',
+              Utils.enumToString(lc.selectedItem.speed),
             ]);
           },
           child: const Text('Wings'),
@@ -199,11 +213,13 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
               '--address',
               widget.device.address,
               'set',
-              'led',
+              channel,
               'color',
               'alternating',
               startHex,
               endHex,
+              '--speed',
+              Utils.enumToString(lc.selectedItem.speed),
             ]);
           },
           child: const Text('alternating'),
@@ -216,10 +232,12 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
               '--address',
               widget.device.address,
               'set',
-              'led',
+              channel,
               'color',
               'marquee-5',
               startHex,
+              '--speed',
+              Utils.enumToString(lc.selectedItem.speed),
             ]);
           },
           child: const Text('marquee'),
@@ -232,7 +250,7 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
               '--address',
               widget.device.address,
               'set',
-              'led',
+              channel,
               'color',
               'super-fixed',
               startHex,
@@ -249,7 +267,7 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
               '--address',
               widget.device.address,
               'set',
-              'led',
+              channel,
               'color',
               'off',
             ]);
@@ -264,11 +282,13 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
               '--address',
               widget.device.address,
               'set',
-              'led',
+              channel,
               'color',
               'pulse',
               startHex,
               endHex,
+              '--speed',
+              Utils.enumToString(lc.selectedItem.speed),
             ]);
           },
           child: const Text('pulse'),
