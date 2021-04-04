@@ -30,9 +30,9 @@ class LiquidController extends ChangeNotifier {
 
   String _result = '';
   int _exitCode = 0;
-  final Map<String, LiquidDevice> _devices = {};
+  final List<LiquidDevice> _devices = [];
 
-  Map<String, LiquidDevice> get devices => _devices;
+  List<LiquidDevice> get devices => _devices;
   String get result => _result;
   int get exitCode => _exitCode;
 
@@ -50,7 +50,6 @@ class LiquidController extends ChangeNotifier {
 
     String output = '';
     await stream.forEach((x) {
-      print('output');
       output += x;
     });
 
@@ -71,22 +70,22 @@ class LiquidController extends ChangeNotifier {
       final List<Map<String, dynamic>> devices =
           List<Map<String, dynamic>>.from(json.decode(result) as List);
 
-      int index = 0;
       devices.forEach((e) {
-        final device = LiquidDevice.fromMap(e);
-
-        device.id = index.toString();
-        _devices[index.toString()] = device;
-
-        index++;
+        _devices.add(LiquidDevice.fromMap(e));
       });
     }
 
     notifyListeners();
   }
 
-  Future<void> initialize(String devId) async {
-    await runCommand(['initialize', '-d', devId]);
+  Future<void> initialize(LiquidDevice device) async {
+    await runCommand([
+      'initialize',
+      '--bus',
+      device.bus,
+      '--address',
+      device.address,
+    ]);
   }
 
   Future<void> updateStatus() async {
@@ -121,10 +120,12 @@ class LiquidController extends ChangeNotifier {
   }
 
   // for NZXT case fans
-  void setFanSpeed(String devId, int speed) {
+  void setFanSpeed(LiquidDevice device, int speed) {
     runCommand([
-      '-d',
-      devId,
+      '--bus',
+      device.bus,
+      '--address',
+      device.address,
       'set',
       'sync',
       'speed',

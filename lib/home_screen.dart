@@ -19,17 +19,13 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _deviceList() {
     final LiquidController lc = context.watch<LiquidController>();
 
-    final keys = lc.devices.keys.toList();
-
     return ListView.builder(
-      itemCount: keys.length,
+      itemCount: lc.devices.length,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
-        final key = keys[index];
-
         return LiquidDeviceCard(
-          device: lc.devices[key],
+          device: lc.devices[index],
         );
       },
     );
@@ -42,12 +38,6 @@ class _HomeScreenState extends State<HomeScreen> {
       spacing: 12,
       runSpacing: 12,
       children: [
-        ElevatedButton(
-          onPressed: () async {
-            await lc.updateDevices();
-          },
-          child: const Text('List'),
-        ),
         ElevatedButton(
           onPressed: () async {
             await lc.runCommand([

@@ -2,8 +2,6 @@ import 'package:simple_json_mapper/simple_json_mapper.dart';
 
 @JObj()
 class LiquidDevice {
-  String id;
-
   @JsonProperty(name: 'vendor_id')
   int vendorId;
 
@@ -23,7 +21,6 @@ class LiquidDevice {
   String description;
 
   LiquidDevice({
-    this.id,
     this.vendorId,
     this.productId,
     this.releaseNumber,
@@ -49,6 +46,6 @@ class LiquidDevice {
 
   @override
   String toString() {
-    return 'LiquidDevice(id: $id, vendorId: $vendorId, productId: $productId, releaseNumber: $releaseNumber, serialNumber: $serialNumber, bus: $bus, address: $address, port: $port, driver: $driver, description: $description)';
+    return 'LiquidDevice(vendorId: $vendorId, productId: $productId, releaseNumber: $releaseNumber, serialNumber: $serialNumber, bus: $bus, address: $address, port: $port, driver: $driver, description: $description)';
   }
 }

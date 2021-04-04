@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shared/flutter_shared_web.dart';
 import 'package:liquid_ui/liquid_controller.dart';
 import 'package:liquid_ui/liquid_device.dart';
+import 'package:liquid_ui/two_colors.dart';
 import 'package:provider/provider.dart';
 
 class LiquidDeviceCard extends StatefulWidget {
@@ -15,11 +16,26 @@ class LiquidDeviceCard extends StatefulWidget {
 
 class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
   double _fanSpeed = 0;
+  Color _startColor;
+  Color _endColor;
 
   Widget _buttonsForDevice(LiquidDevice device) {
     if (device.isNZXTSmartDevice) {
       return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const SizedBox(height: 20),
+          TwoColors(
+            startColor: _startColor,
+            endColor: _endColor,
+            onChange: (start, end) {
+              _startColor = start;
+              _endColor = end;
+
+              setState(() {});
+            },
+          ),
+          const SizedBox(height: 20),
           _nzxtButtons(),
           const SizedBox(height: 20),
           ..._nzxtCaseFanSlider(),
@@ -43,17 +59,27 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
         onChanged: (value) {
           _fanSpeed = value;
 
-          lc.setFanSpeed(widget.device.id, value.toInt());
+          lc.setFanSpeed(widget.device, value.toInt());
 
           setState(() {});
         },
         value: _fanSpeed,
-      )
+      ),
     ];
   }
 
   Widget _nzxtButtons() {
     final LiquidController lc = context.read<LiquidController>();
+
+    String startHex = _startColor != null
+        ? _startColor.value.toRadixString(16)
+        : Colors.white.value.toRadixString(16);
+    String endHex = _endColor != null
+        ? _endColor.value.toRadixString(16)
+        : Colors.blue.value.toRadixString(16);
+
+    startHex = startHex.substring(2);
+    endHex = endHex.substring(2);
 
     return Wrap(
       spacing: 12,
@@ -62,14 +88,16 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
         ElevatedButton(
           onPressed: () async {
             await lc.runCommand([
-              '-d',
-              widget.device.id,
+              '--bus',
+              widget.device.bus,
+              '--address',
+              widget.device.address,
               'set',
               'led',
               'color',
               'breathing',
-              '440022',
-              '002244'
+              startHex,
+              endHex,
             ]);
           },
           child: const Text('Breathing'),
@@ -77,14 +105,16 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
         ElevatedButton(
           onPressed: () async {
             await lc.runCommand([
-              '-d',
-              widget.device.id,
+              '--bus',
+              widget.device.bus,
+              '--address',
+              widget.device.address,
               'set',
               'led',
               'color',
               'fading',
-              '440022',
-              '002244'
+              startHex,
+              endHex,
             ]);
           },
           child: const Text('Fading'),
@@ -92,17 +122,18 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
         ElevatedButton(
           onPressed: () async {
             await lc.runCommand([
-              '-d',
-              widget.device.id,
+              '--bus',
+              widget.device.bus,
+              '--address',
+              widget.device.address,
               'set',
               'led',
               'color',
-              'breathing',
-              '140022',
-              '442200'
+              'fixed',
+              startHex,
             ]);
           },
-          child: const Text('wak'),
+          child: const Text('One Color'),
         ),
       ],
     );
@@ -114,21 +145,21 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
 
     return Container(
       margin: const EdgeInsets.only(bottom: 20),
-      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 12),
+      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 32),
       decoration: BoxDecoration(
         color: Colors.white12,
         borderRadius: BorderRadius.circular(12),
       ),
       child: ListRow(
-        leading: Icon(
-          Icons.monetization_on_rounded,
-          size: 44,
-          color: Theme.of(context).primaryColor,
-        ),
+        // leading: Icon(
+        //   Icons.monetization_on_rounded,
+        //   size: 44,
+        //   color: Theme.of(context).primaryColor,
+        // ),
         title: widget.device.description,
         trailing: IconButton(
           onPressed: () {
-            lc.initialize(widget.device.id);
+            lc.initialize(widget.device);
           },
           icon: const Icon(
             Icons.ac_unit,

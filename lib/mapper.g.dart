@@ -6,7 +6,6 @@ import 'package:liquid_ui/liquid_device.dart';
 
 final _liquiddeviceMapper = JsonObjectMapper(
   (CustomJsonMapper mapper, Map<String, dynamic> json) => LiquidDevice(
-    id: mapper.applyFromJsonConverter(json['id']),
     vendorId: mapper.applyFromJsonConverter(json['vendor_id']),
     productId: mapper.applyFromJsonConverter(json['product_id']),
     releaseNumber: mapper.applyFromJsonConverter(json['release_number']),
@@ -18,7 +17,6 @@ final _liquiddeviceMapper = JsonObjectMapper(
     description: mapper.applyFromJsonConverter(json['description']),
   ),
   (CustomJsonMapper mapper, LiquidDevice instance) => <String, dynamic>{
-    'id': mapper.applyFromInstanceConverter(instance.id),
     'vendor_id': mapper.applyFromInstanceConverter(instance.vendorId),
     'product_id': mapper.applyFromInstanceConverter(instance.productId),
     'release_number': mapper.applyFromInstanceConverter(instance.releaseNumber),
