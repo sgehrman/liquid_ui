@@ -40,9 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
       children: [
         ElevatedButton(
           onPressed: () async {
-            await lc.runCommand([
-              'status',
-            ]);
+            await lc.updateStatus();
           },
           child: const Text('Status'),
         ),

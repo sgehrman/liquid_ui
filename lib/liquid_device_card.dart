@@ -247,6 +247,23 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
           },
           child: const Text('Off'),
         ),
+        ElevatedButton(
+          onPressed: () async {
+            await lc.runCommand([
+              '--bus',
+              widget.device.bus,
+              '--address',
+              widget.device.address,
+              'set',
+              'led',
+              'color',
+              'pulse',
+              startHex,
+              endHex,
+            ]);
+          },
+          child: const Text('pulse'),
+        ),
       ],
     );
   }
