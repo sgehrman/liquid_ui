@@ -100,11 +100,7 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
         ),
         ElevatedButton(
           onPressed: () async {
-            await lc.runCommand([
-              '--bus',
-              widget.device.bus,
-              '--address',
-              widget.device.address,
+            await lc.runCommand(device: widget.device, arguments: [
               'set',
               channel,
               'color',
@@ -119,11 +115,7 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
         ),
         ElevatedButton(
           onPressed: () async {
-            await lc.runCommand([
-              '--bus',
-              widget.device.bus,
-              '--address',
-              widget.device.address,
+            await lc.runCommand(device: widget.device, arguments: [
               'set',
               channel,
               'color',
@@ -138,11 +130,7 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
         ),
         ElevatedButton(
           onPressed: () async {
-            await lc.runCommand([
-              '--bus',
-              widget.device.bus,
-              '--address',
-              widget.device.address,
+            await lc.runCommand(device: widget.device, arguments: [
               'set',
               channel,
               'color',
@@ -154,11 +142,7 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
         ),
         ElevatedButton(
           onPressed: () async {
-            await lc.runCommand([
-              '--bus',
-              widget.device.bus,
-              '--address',
-              widget.device.address,
+            await lc.runCommand(device: widget.device, arguments: [
               'set',
               channel,
               'color',
@@ -171,11 +155,7 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
         ),
         ElevatedButton(
           onPressed: () async {
-            await lc.runCommand([
-              '--bus',
-              widget.device.bus,
-              '--address',
-              widget.device.address,
+            await lc.runCommand(device: widget.device, arguments: [
               'set',
               channel,
               'color',
@@ -189,11 +169,7 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
         ),
         ElevatedButton(
           onPressed: () async {
-            await lc.runCommand([
-              '--bus',
-              widget.device.bus,
-              '--address',
-              widget.device.address,
+            await lc.runCommand(device: widget.device, arguments: [
               'set',
               channel,
               'color',
@@ -207,11 +183,7 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
         ),
         ElevatedButton(
           onPressed: () async {
-            await lc.runCommand([
-              '--bus',
-              widget.device.bus,
-              '--address',
-              widget.device.address,
+            await lc.runCommand(device: widget.device, arguments: [
               'set',
               channel,
               'color',
@@ -226,11 +198,7 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
         ),
         ElevatedButton(
           onPressed: () async {
-            await lc.runCommand([
-              '--bus',
-              widget.device.bus,
-              '--address',
-              widget.device.address,
+            await lc.runCommand(device: widget.device, arguments: [
               'set',
               channel,
               'color',
@@ -244,11 +212,7 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
         ),
         ElevatedButton(
           onPressed: () async {
-            await lc.runCommand([
-              '--bus',
-              widget.device.bus,
-              '--address',
-              widget.device.address,
+            await lc.runCommand(device: widget.device, arguments: [
               'set',
               channel,
               'color',
@@ -261,11 +225,7 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
         ),
         ElevatedButton(
           onPressed: () async {
-            await lc.runCommand([
-              '--bus',
-              widget.device.bus,
-              '--address',
-              widget.device.address,
+            await lc.runCommand(device: widget.device, arguments: [
               'set',
               channel,
               'color',
@@ -276,11 +236,7 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
         ),
         ElevatedButton(
           onPressed: () async {
-            await lc.runCommand([
-              '--bus',
-              widget.device.bus,
-              '--address',
-              widget.device.address,
+            await lc.runCommand(device: widget.device, arguments: [
               'set',
               channel,
               'color',

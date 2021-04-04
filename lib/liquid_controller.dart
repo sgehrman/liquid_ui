@@ -28,15 +28,28 @@ class LiquidController extends ChangeNotifier {
   String get result => _result;
   int get exitCode => _exitCode;
 
-  Future<String> runCommand(
-    List<String> arguments,
-  ) async {
-    print(arguments.join(' '));
+  Future<String> runCommand({
+    LiquidDevice device,
+    @required List<String> arguments,
+  }) async {
+    List<String> args = [];
+
+    if (device != null) {
+      args = [
+        '--bus',
+        device.bus,
+        '--address',
+        device.address,
+      ];
+    }
+
+    args.addAll(arguments);
+    print(args.join(' '));
 
     // liquidctl -d 1 set led color breathing 440022 002244
     // liquidctl -d 1 set led color fading 440022 002244
 
-    final Process process = await Process.start('liquidctl', arguments);
+    final Process process = await Process.start('liquidctl', args);
 
     String output = '';
 
@@ -66,7 +79,7 @@ class LiquidController extends ChangeNotifier {
   }
 
   Future<void> updateDevices() async {
-    final result = await runCommand(['list', '-v', '--json']);
+    final result = await runCommand(arguments: ['list', '-v', '--json']);
 
     if (Utils.isNotEmpty(result)) {
       final List<Map<String, dynamic>> devices =
@@ -83,7 +96,7 @@ class LiquidController extends ChangeNotifier {
   }
 
   Future<void> initialize(LiquidDevice device) async {
-    await runCommand([
+    await runCommand(arguments: [
       'initialize',
       '--bus',
       device.bus,
@@ -93,7 +106,7 @@ class LiquidController extends ChangeNotifier {
   }
 
   Future<void> updateStatus() async {
-    final status = await runCommand([
+    final status = await runCommand(arguments: [
       'status',
       '--json',
     ]);
@@ -106,11 +119,7 @@ class LiquidController extends ChangeNotifier {
 
   // for NZXT case fans
   void setFanSpeed(LiquidDevice device, int speed) {
-    runCommand([
-      '--bus',
-      device.bus,
-      '--address',
-      device.address,
+    runCommand(device: device, arguments: [
       'set',
       'sync',
       'speed',
