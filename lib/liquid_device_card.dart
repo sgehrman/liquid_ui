@@ -42,6 +42,25 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
           ..._nzxtCaseFanSlider(),
         ],
       );
+    } else if (device.isNZXTKraken) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 20),
+          TwoColors(
+            startColor: _startColor,
+            endColor: _endColor,
+            onChange: (start, end) {
+              _startColor = start;
+              _endColor = end;
+
+              setState(() {});
+            },
+          ),
+          const SizedBox(height: 20),
+          _krakenButtons(),
+        ],
+      );
     }
 
     return NothingWidget();
@@ -134,13 +153,16 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
         ),
         ElevatedButton(
           onPressed: () async {
-            await lc.runCommand(device: widget.device, arguments: [
-              'set',
-              channel,
-              'color',
-              'fixed',
-              startHex,
-            ]);
+            await lc.runCommand(
+              device: widget.device,
+              arguments: [
+                'set',
+                channel,
+                'color',
+                'fixed',
+                startHex,
+              ],
+            );
           },
           child: const Text('Fixed Color'),
         ),
@@ -226,25 +248,31 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
         ),
         ElevatedButton(
           onPressed: () async {
-            await lc.runCommand(device: widget.device, arguments: [
-              'set',
-              channel,
-              'color',
-              'super-fixed',
-              startHex,
-              endHex,
-            ]);
+            await lc.runCommand(
+              device: widget.device,
+              arguments: [
+                'set',
+                channel,
+                'color',
+                'super-fixed',
+                startHex,
+                endHex,
+              ],
+            );
           },
           child: const Text('Super Fixed'),
         ),
         ElevatedButton(
           onPressed: () async {
-            await lc.runCommand(device: widget.device, arguments: [
-              'set',
-              channel,
-              'color',
-              'off',
-            ]);
+            await lc.runCommand(
+              device: widget.device,
+              arguments: [
+                'set',
+                channel,
+                'color',
+                'off',
+              ],
+            );
           },
           child: const Text('Off'),
         ),
@@ -264,6 +292,111 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
             );
           },
           child: const Text('pulse'),
+        ),
+      ],
+    );
+  }
+
+  Widget _krakenButtons() {
+    final LiquidController lc = context.read<LiquidController>();
+
+    String startHex = _startColor != null
+        ? _startColor.value.toRadixString(16)
+        : Colors.white.value.toRadixString(16);
+    String endHex = _endColor != null
+        ? _endColor.value.toRadixString(16)
+        : Colors.blue.value.toRadixString(16);
+
+    startHex = startHex.substring(2);
+    endHex = endHex.substring(2);
+
+    return Wrap(
+      spacing: 12,
+      runSpacing: 12,
+      children: [
+        AnimationSpeedMenu(
+          selectedItem: lc.selectedItem,
+          onItemSelected: (selected) {
+            lc.selectedItem = selected;
+          },
+        ),
+        ElevatedButton(
+          onPressed: () async {
+            await lc.runCommand(
+              device: widget.device,
+              addSpeed: true,
+              arguments: [
+                'set',
+                'logo',
+                'color',
+                'fixed',
+                startHex,
+              ],
+            );
+          },
+          child: const Text('Logo Fixed'),
+        ),
+        ElevatedButton(
+          onPressed: () async {
+            await lc.runCommand(
+              device: widget.device,
+              addSpeed: true,
+              arguments: [
+                'set',
+                'ring',
+                'color',
+                'loading',
+                startHex,
+              ],
+            );
+          },
+          child: const Text('Ring Loading'),
+        ),
+        ElevatedButton(
+          onPressed: () async {
+            await lc.runCommand(
+              device: widget.device,
+              addSpeed: true,
+              arguments: [
+                'set',
+                'ring',
+                'color',
+                'loading',
+                startHex,
+              ],
+            );
+          },
+          child: const Text('Ring Loading'),
+        ),
+        ElevatedButton(
+          onPressed: () async {
+            await lc.runCommand(
+              device: widget.device,
+              addSpeed: true,
+              arguments: [
+                'set',
+                'ring',
+                'color',
+                'spectrum-wave',
+              ],
+            );
+          },
+          child: const Text('Ring Spectrum Wave'),
+        ),
+        ElevatedButton(
+          onPressed: () async {
+            await lc.runCommand(
+              device: widget.device,
+              addSpeed: true,
+              arguments: [
+                'set',
+                'logo',
+                'color',
+                'spectrum-wave',
+              ],
+            );
+          },
+          child: const Text('Logo Spectrum Wave'),
         ),
       ],
     );

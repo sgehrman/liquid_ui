@@ -40,6 +40,10 @@ class LiquidDevice {
     return description.contains('NZXT Smart Device (V2)');
   }
 
+  bool get isNZXTKraken {
+    return description.contains('NZXT Kraken');
+  }
+
   Map<String, dynamic> toMap() {
     return JsonMapper.serializeToMap(this);
   }
