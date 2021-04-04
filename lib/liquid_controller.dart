@@ -31,6 +31,7 @@ class LiquidController extends ChangeNotifier {
   Future<String> runCommand({
     LiquidDevice device,
     @required List<String> arguments,
+    bool addSpeed = false,
   }) async {
     List<String> args = [];
 
@@ -41,6 +42,13 @@ class LiquidController extends ChangeNotifier {
         '--address',
         device.address,
       ];
+    }
+
+    if (addSpeed) {
+      args.addAll([
+        '--speed',
+        Utils.enumToString(selectedItem.speed),
+      ]);
     }
 
     args.addAll(arguments);

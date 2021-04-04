@@ -100,31 +100,35 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
         ),
         ElevatedButton(
           onPressed: () async {
-            await lc.runCommand(device: widget.device, arguments: [
-              'set',
-              channel,
-              'color',
-              'breathing',
-              startHex,
-              endHex,
-              '--speed',
-              Utils.enumToString(lc.selectedItem.speed),
-            ]);
+            await lc.runCommand(
+              device: widget.device,
+              addSpeed: true,
+              arguments: [
+                'set',
+                channel,
+                'color',
+                'breathing',
+                startHex,
+                endHex,
+              ],
+            );
           },
           child: const Text('Breathing'),
         ),
         ElevatedButton(
           onPressed: () async {
-            await lc.runCommand(device: widget.device, arguments: [
-              'set',
-              channel,
-              'color',
-              'fading',
-              startHex,
-              endHex,
-              '--speed',
-              Utils.enumToString(lc.selectedItem.speed),
-            ]);
+            await lc.runCommand(
+              device: widget.device,
+              addSpeed: true,
+              arguments: [
+                'set',
+                channel,
+                'color',
+                'fading',
+                startHex,
+                endHex,
+              ],
+            );
           },
           child: const Text('Fading'),
         ),
@@ -142,71 +146,81 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
         ),
         ElevatedButton(
           onPressed: () async {
-            await lc.runCommand(device: widget.device, arguments: [
-              'set',
-              channel,
-              'color',
-              'spectrum-wave',
-              '--speed',
-              Utils.enumToString(lc.selectedItem.speed),
-            ]);
+            await lc.runCommand(
+              device: widget.device,
+              arguments: [
+                'set',
+                channel,
+                'color',
+                'spectrum-wave',
+              ],
+              addSpeed: true,
+            );
           },
           child: const Text('Spectrum Wave'),
         ),
         ElevatedButton(
           onPressed: () async {
-            await lc.runCommand(device: widget.device, arguments: [
-              'set',
-              channel,
-              'color',
-              'candle',
-              startHex,
-              '--speed',
-              Utils.enumToString(lc.selectedItem.speed),
-            ]);
+            await lc.runCommand(
+              device: widget.device,
+              addSpeed: true,
+              arguments: [
+                'set',
+                channel,
+                'color',
+                'candle',
+                startHex,
+              ],
+            );
           },
           child: const Text('Candle'),
         ),
         ElevatedButton(
           onPressed: () async {
-            await lc.runCommand(device: widget.device, arguments: [
-              'set',
-              channel,
-              'color',
-              'wings',
-              startHex,
-              '--speed',
-              Utils.enumToString(lc.selectedItem.speed),
-            ]);
+            await lc.runCommand(
+              device: widget.device,
+              addSpeed: true,
+              arguments: [
+                'set',
+                channel,
+                'color',
+                'wings',
+                startHex,
+              ],
+            );
           },
           child: const Text('Wings'),
         ),
         ElevatedButton(
           onPressed: () async {
-            await lc.runCommand(device: widget.device, arguments: [
-              'set',
-              channel,
-              'color',
-              'alternating',
-              startHex,
-              endHex,
-              '--speed',
-              Utils.enumToString(lc.selectedItem.speed),
-            ]);
+            await lc.runCommand(
+              device: widget.device,
+              addSpeed: true,
+              arguments: [
+                'set',
+                channel,
+                'color',
+                'alternating',
+                startHex,
+                endHex,
+              ],
+            );
           },
           child: const Text('alternating'),
         ),
         ElevatedButton(
           onPressed: () async {
-            await lc.runCommand(device: widget.device, arguments: [
-              'set',
-              channel,
-              'color',
-              'marquee-5',
-              startHex,
-              '--speed',
-              Utils.enumToString(lc.selectedItem.speed),
-            ]);
+            await lc.runCommand(
+              device: widget.device,
+              addSpeed: true,
+              arguments: [
+                'set',
+                channel,
+                'color',
+                'marquee-5',
+                startHex,
+              ],
+            );
           },
           child: const Text('marquee'),
         ),
@@ -236,16 +250,18 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
         ),
         ElevatedButton(
           onPressed: () async {
-            await lc.runCommand(device: widget.device, arguments: [
-              'set',
-              channel,
-              'color',
-              'pulse',
-              startHex,
-              endHex,
-              '--speed',
-              Utils.enumToString(lc.selectedItem.speed),
-            ]);
+            await lc.runCommand(
+              device: widget.device,
+              addSpeed: true,
+              arguments: [
+                'set',
+                channel,
+                'color',
+                'pulse',
+                startHex,
+                endHex,
+              ],
+            );
           },
           child: const Text('pulse'),
         ),
