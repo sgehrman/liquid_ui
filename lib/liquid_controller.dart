@@ -55,6 +55,11 @@ class LiquidController extends ChangeNotifier {
     _exitCode = await process.exitCode;
     _result = output;
 
+    if (_result.firstChar == '[') {
+      _result =
+          StrUtils.toPrettyList(List<Map>.from(json.decode(_result) as List));
+    }
+
     notifyListeners();
 
     return output;
@@ -94,7 +99,8 @@ class LiquidController extends ChangeNotifier {
     ]);
 
     if (Utils.isNotEmpty(status)) {
-      // sdf
+      // fff
+
     }
   }
 
