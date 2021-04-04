@@ -133,7 +133,119 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
               startHex,
             ]);
           },
-          child: const Text('One Color'),
+          child: const Text('Fixed Color'),
+        ),
+        ElevatedButton(
+          onPressed: () async {
+            await lc.runCommand([
+              '--bus',
+              widget.device.bus,
+              '--address',
+              widget.device.address,
+              'set',
+              'led',
+              'color',
+              'spectrum-wave',
+            ]);
+          },
+          child: const Text('Spectrum Wave'),
+        ),
+        ElevatedButton(
+          onPressed: () async {
+            await lc.runCommand([
+              '--bus',
+              widget.device.bus,
+              '--address',
+              widget.device.address,
+              'set',
+              'led',
+              'color',
+              'candle',
+              startHex,
+            ]);
+          },
+          child: const Text('Candle'),
+        ),
+        ElevatedButton(
+          onPressed: () async {
+            await lc.runCommand([
+              '--bus',
+              widget.device.bus,
+              '--address',
+              widget.device.address,
+              'set',
+              'led',
+              'color',
+              'wings',
+              startHex,
+            ]);
+          },
+          child: const Text('Wings'),
+        ),
+        ElevatedButton(
+          onPressed: () async {
+            await lc.runCommand([
+              '--bus',
+              widget.device.bus,
+              '--address',
+              widget.device.address,
+              'set',
+              'led',
+              'color',
+              'alternating',
+              startHex,
+              endHex,
+            ]);
+          },
+          child: const Text('alternating'),
+        ),
+        ElevatedButton(
+          onPressed: () async {
+            await lc.runCommand([
+              '--bus',
+              widget.device.bus,
+              '--address',
+              widget.device.address,
+              'set',
+              'led',
+              'color',
+              'marquee-5',
+              startHex,
+            ]);
+          },
+          child: const Text('marquee'),
+        ),
+        ElevatedButton(
+          onPressed: () async {
+            await lc.runCommand([
+              '--bus',
+              widget.device.bus,
+              '--address',
+              widget.device.address,
+              'set',
+              'led',
+              'color',
+              'super-fixed',
+              startHex,
+              endHex,
+            ]);
+          },
+          child: const Text('Super Fixed'),
+        ),
+        ElevatedButton(
+          onPressed: () async {
+            await lc.runCommand([
+              '--bus',
+              widget.device.bus,
+              '--address',
+              widget.device.address,
+              'set',
+              'led',
+              'color',
+              'off',
+            ]);
+          },
+          child: const Text('Off'),
         ),
       ],
     );
