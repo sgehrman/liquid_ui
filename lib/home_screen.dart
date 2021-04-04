@@ -64,31 +64,48 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final LiquidController lc = context.watch<LiquidController>();
 
+    final actions = [
+      IconButton(
+        onPressed: () {
+          lc.updateDevices();
+        },
+        icon: const Icon(Icons.refresh),
+      ),
+    ];
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        actions: actions,
       ),
       body: Scrollbar(
         child: SingleChildScrollView(
           padding:
               const EdgeInsets.only(left: 20, right: 20, bottom: 60, top: 20),
           dragStartBehavior: DragStartBehavior.down,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              _buttons(),
-              const SizedBox(height: 20),
-              _deviceList(),
-              const SizedBox(height: 20),
-              const Text(
-                'Results',
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(
+                maxWidth: 700,
               ),
-              const SizedBox(height: 10),
-              Text(
-                lc.result ?? 'none',
-                style: Theme.of(context).textTheme.caption,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  _buttons(),
+                  const SizedBox(height: 20),
+                  _deviceList(),
+                  const SizedBox(height: 20),
+                  const Text(
+                    'Results',
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    lc.result ?? 'none',
+                    style: Theme.of(context).textTheme.caption,
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),

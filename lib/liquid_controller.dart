@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_shared/flutter_shared.dart';
+import 'package:liquid_ui/liquid_device.dart';
 
 // Device ID 0: NZXT Kraken X (X42, X52, X62 or X72)
 // ├── Vendor ID: 0x1e71
@@ -23,6 +24,10 @@ import 'package:flutter_shared/flutter_shared.dart';
 // └── Driver: SmartDevice
 
 class LiquidController extends ChangeNotifier {
+  LiquidController() {
+    updateDevices();
+  }
+
   String _result = '';
   int _exitCode = 0;
   final Map<String, LiquidDevice> _devices = {};
@@ -34,6 +39,8 @@ class LiquidController extends ChangeNotifier {
   Future<String> runCommand(
     List<String> arguments,
   ) async {
+    print(arguments.join(' '));
+
     // liquidctl -d 1 set led color breathing 440022 002244
     // liquidctl -d 1 set led color fading 440022 002244
 
@@ -58,20 +65,20 @@ class LiquidController extends ChangeNotifier {
   }
 
   Future<void> updateDevices() async {
-    final result = await runCommand([
-      'list',
-      '-v',
-    ]);
+    final result = await runCommand(['list', '-v', '--json']);
 
     if (Utils.isNotEmpty(result)) {
-      List<String> split = _result.split('Device ID');
+      final List<Map<String, dynamic>> devices =
+          List<Map<String, dynamic>>.from(json.decode(result) as List);
 
-      split = split.where((d) => Utils.isNotEmpty(d.trim())).toList();
+      int index = 0;
+      devices.forEach((e) {
+        final device = LiquidDevice.fromMap(e);
 
-      final devs = split.map((e) => LiquidDevice.fromString(e)).toList();
+        device.id = index.toString();
+        _devices[index.toString()] = device;
 
-      devs.forEach((e) {
-        _devices[e.id ?? 'noId'] = e;
+        index++;
       });
     }
 
@@ -85,6 +92,7 @@ class LiquidController extends ChangeNotifier {
   Future<void> updateStatus() async {
     final status = await runCommand([
       'status',
+      '--json',
     ]);
 
     if (Utils.isNotEmpty(status)) {
@@ -111,31 +119,16 @@ class LiquidController extends ChangeNotifier {
 
     }
   }
-}
 
-class LiquidDevice {
-  LiquidDevice.fromString(String infoString) {
-    final List<String> lines = infoString.split('\n');
-
-    description = infoString.trim();
-
-    if (Utils.isNotEmpty(lines)) {
-      final split = lines[0].split(':');
-
-      if (Utils.isNotEmpty(split)) {
-        id = split[0].trim();
-      }
-    }
-  }
-  String id;
-  String vendorId;
-  String serialNumber;
-  String bus;
-  String address;
-  String driver;
-  String description;
-
-  bool get isNZXTSmartDevice {
-    return description.contains('NZXT Smart Device');
+  // for NZXT case fans
+  void setFanSpeed(String devId, int speed) {
+    runCommand([
+      '-d',
+      devId,
+      'set',
+      'sync',
+      'speed',
+      speed.toString(),
+    ]);
   }
 }

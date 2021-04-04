@@ -21,7 +21,11 @@ dependencies:
 
 dev_dependencies:
   lint: ^1.5.3
-
+  build_runner: ^1.12.1
+  simple_json:
+    git:
+      url: git://github.com/sgehrman/simple_json
+      path: simple_json
 flutter:
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

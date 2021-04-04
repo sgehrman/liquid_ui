@@ -1,0 +1,11 @@
+{
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#a72d47",
+    "titleBar.inactiveBackground": "#a72d47",
+    "titleBar.activeBackground": "#a72d47"
+  },
+  "workbench.editor.limit.enabled": true,
+  "explorer.compactFolders": false,
+  "dart.closingLabels": false,
+  "workbench.editor.wrapTabs": true,
+}
