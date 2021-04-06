@@ -37,7 +37,7 @@ class LiquidDevice {
   }
 
   bool get isNZXTSmartDeviceV2 {
-    return description.contains('NZXT Smart Device (V2)');
+    return description.contains('NZXT Smart Device V2');
   }
 
   bool get isNZXTKraken {

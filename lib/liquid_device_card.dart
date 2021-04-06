@@ -20,8 +20,9 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
   Color _startColor;
   Color _endColor;
 
-  Widget _buttonsForDevice(LiquidDevice device) {
-    if (device.isNZXTSmartDeviceV1 || device.isNZXTSmartDeviceV2) {
+  Widget _buttonsForDevice() {
+    if (widget.device.isNZXTSmartDeviceV1 ||
+        widget.device.isNZXTSmartDeviceV2) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -42,7 +43,7 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
           ..._nzxtCaseFanSlider(),
         ],
       );
-    } else if (device.isNZXTKraken) {
+    } else if (widget.device.isNZXTKraken) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -88,8 +89,8 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
     ];
   }
 
-  Widget _nzxtButtons() {
-    final LiquidController lc = context.read<LiquidController>();
+  List<CommandSpec> _commands() {
+    final List<CommandSpec> result = [];
 
     String startHex = _startColor != null
         ? _startColor.value.toRadixString(16)
@@ -107,6 +108,167 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
       channel = 'sync';
     }
 
+    result.add(CommandSpec(
+      name: 'Breathing',
+      addSpeed: true,
+      arguments: [
+        'set',
+        channel,
+        'color',
+        'breathing',
+        startHex,
+        endHex,
+      ],
+    ));
+
+    result.add(CommandSpec(
+      name: 'Fading',
+      addSpeed: true,
+      arguments: [
+        'set',
+        channel,
+        'color',
+        'fading',
+        startHex,
+        endHex,
+      ],
+    ));
+
+    result.add(CommandSpec(
+      name: 'Fixed',
+      arguments: [
+        'set',
+        channel,
+        'color',
+        'fixed',
+        startHex,
+      ],
+    ));
+
+    result.add(CommandSpec(
+      name: 'Spectrum Wave',
+      arguments: [
+        'set',
+        channel,
+        'color',
+        'spectrum-wave',
+      ],
+      addSpeed: true,
+    ));
+
+    result.add(CommandSpec(
+      name: 'Candle',
+      addSpeed: true,
+      arguments: [
+        'set',
+        channel,
+        'color',
+        'candle',
+        startHex,
+      ],
+    ));
+
+    result.add(CommandSpec(
+      name: 'Alternating',
+      addSpeed: true,
+      arguments: [
+        'set',
+        channel,
+        'color',
+        'alternating',
+        startHex,
+        endHex,
+      ],
+    ));
+
+    result.add(CommandSpec(
+      name: 'Marquee',
+      addSpeed: true,
+      arguments: [
+        'set',
+        channel,
+        'color',
+        'marquee-5',
+        startHex,
+      ],
+    ));
+
+    result.add(CommandSpec(
+      name: 'Super Fixed',
+      arguments: [
+        'set',
+        channel,
+        'color',
+        'super-fixed',
+        startHex,
+        endHex,
+      ],
+    ));
+
+    result.add(CommandSpec(
+      name: 'Off',
+      arguments: [
+        'set',
+        channel,
+        'color',
+        'off',
+      ],
+    ));
+
+    result.add(CommandSpec(
+      name: 'Pulse',
+      addSpeed: true,
+      arguments: [
+        'set',
+        channel,
+        'color',
+        'pulse',
+        startHex,
+        endHex,
+      ],
+    ));
+
+    if (widget.device.isNZXTSmartDeviceV1) {
+      result.add(CommandSpec(
+        name: 'Wings',
+        addSpeed: true,
+        arguments: [
+          'set',
+          channel,
+          'color',
+          'wings',
+          startHex,
+        ],
+      ));
+    }
+
+    if (widget.device.isNZXTSmartDeviceV2) {
+      // sdf
+    }
+
+    return result;
+  }
+
+  List<Widget> _buttons() {
+    final LiquidController lc = context.read<LiquidController>();
+
+    return _commands().map((cmd) {
+      return ElevatedButton(
+        onPressed: () async {
+          await lc.runCommand(
+            device: widget.device,
+            addSpeed: cmd.addSpeed,
+            arguments: cmd.arguments,
+          );
+        },
+        child: Text(cmd.name),
+      );
+    }).toList();
+  }
+
+  Widget _nzxtButtons() {
+    final LiquidController lc = context.read<LiquidController>();
+
     return Wrap(
       spacing: 12,
       runSpacing: 12,
@@ -117,182 +279,7 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
             lc.selectedItem = selected;
           },
         ),
-        ElevatedButton(
-          onPressed: () async {
-            await lc.runCommand(
-              device: widget.device,
-              addSpeed: true,
-              arguments: [
-                'set',
-                channel,
-                'color',
-                'breathing',
-                startHex,
-                endHex,
-              ],
-            );
-          },
-          child: const Text('Breathing'),
-        ),
-        ElevatedButton(
-          onPressed: () async {
-            await lc.runCommand(
-              device: widget.device,
-              addSpeed: true,
-              arguments: [
-                'set',
-                channel,
-                'color',
-                'fading',
-                startHex,
-                endHex,
-              ],
-            );
-          },
-          child: const Text('Fading'),
-        ),
-        ElevatedButton(
-          onPressed: () async {
-            await lc.runCommand(
-              device: widget.device,
-              arguments: [
-                'set',
-                channel,
-                'color',
-                'fixed',
-                startHex,
-              ],
-            );
-          },
-          child: const Text('Fixed Color'),
-        ),
-        ElevatedButton(
-          onPressed: () async {
-            await lc.runCommand(
-              device: widget.device,
-              arguments: [
-                'set',
-                channel,
-                'color',
-                'spectrum-wave',
-              ],
-              addSpeed: true,
-            );
-          },
-          child: const Text('Spectrum Wave'),
-        ),
-        ElevatedButton(
-          onPressed: () async {
-            await lc.runCommand(
-              device: widget.device,
-              addSpeed: true,
-              arguments: [
-                'set',
-                channel,
-                'color',
-                'candle',
-                startHex,
-              ],
-            );
-          },
-          child: const Text('Candle'),
-        ),
-        ElevatedButton(
-          onPressed: () async {
-            await lc.runCommand(
-              device: widget.device,
-              addSpeed: true,
-              arguments: [
-                'set',
-                channel,
-                'color',
-                'wings',
-                startHex,
-              ],
-            );
-          },
-          child: const Text('Wings'),
-        ),
-        ElevatedButton(
-          onPressed: () async {
-            await lc.runCommand(
-              device: widget.device,
-              addSpeed: true,
-              arguments: [
-                'set',
-                channel,
-                'color',
-                'alternating',
-                startHex,
-                endHex,
-              ],
-            );
-          },
-          child: const Text('alternating'),
-        ),
-        ElevatedButton(
-          onPressed: () async {
-            await lc.runCommand(
-              device: widget.device,
-              addSpeed: true,
-              arguments: [
-                'set',
-                channel,
-                'color',
-                'marquee-5',
-                startHex,
-              ],
-            );
-          },
-          child: const Text('marquee'),
-        ),
-        ElevatedButton(
-          onPressed: () async {
-            await lc.runCommand(
-              device: widget.device,
-              arguments: [
-                'set',
-                channel,
-                'color',
-                'super-fixed',
-                startHex,
-                endHex,
-              ],
-            );
-          },
-          child: const Text('Super Fixed'),
-        ),
-        ElevatedButton(
-          onPressed: () async {
-            await lc.runCommand(
-              device: widget.device,
-              arguments: [
-                'set',
-                channel,
-                'color',
-                'off',
-              ],
-            );
-          },
-          child: const Text('Off'),
-        ),
-        ElevatedButton(
-          onPressed: () async {
-            await lc.runCommand(
-              device: widget.device,
-              addSpeed: true,
-              arguments: [
-                'set',
-                channel,
-                'color',
-                'pulse',
-                startHex,
-                endHex,
-              ],
-            );
-          },
-          child: const Text('pulse'),
-        ),
+        ..._buttons(),
       ],
     );
   }
@@ -431,9 +418,21 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
         ),
         subWidget: Padding(
           padding: const EdgeInsets.only(top: 20.0),
-          child: _buttonsForDevice(widget.device),
+          child: _buttonsForDevice(),
         ),
       ),
     );
   }
+}
+
+class CommandSpec {
+  CommandSpec({
+    @required this.name,
+    @required this.arguments,
+    this.addSpeed = false,
+  });
+
+  final String name;
+  final bool addSpeed;
+  final List<String> arguments;
 }
