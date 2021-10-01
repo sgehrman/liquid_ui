@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shared/flutter_shared.dart';
+import 'package:dfc_flutter/dfc_flutter.dart';
 
 // --speed
 // slowest, slower, normal, faster and fastest

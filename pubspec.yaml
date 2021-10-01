@@ -12,12 +12,11 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.2
-  provider: ^5.0.0
+  provider: ^6.0.0
 
-  flutter_shared:
-    # git: git://github.com/sgehrman/flutter_shared
-    git: ssh://git@github.com/sgehrman/flutter_shared
-    # path: ../flutter_shared
+  dfc_flutter:
+    git: git://github.com/sgehrman/dfc_flutter
+    # path: ../dfc_flutter
 
 dev_dependencies:
   lint: ^1.5.3

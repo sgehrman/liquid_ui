@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shared/flutter_shared_web.dart';
+import 'package:dfc_flutter/dfc_flutter_web.dart';
 import 'package:liquid_ui/liquid_controller.dart';
 import 'package:liquid_ui/liquid_device.dart';
 import 'package:liquid_ui/speed_menu.dart';

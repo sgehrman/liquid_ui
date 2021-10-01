@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shared/flutter_shared.dart';
+import 'package:dfc_flutter/dfc_flutter.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 class TwoColors extends StatefulWidget {

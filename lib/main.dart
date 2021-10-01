@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shared/flutter_shared.dart';
+import 'package:dfc_flutter/dfc_flutter.dart';
 import 'package:liquid_ui/home_screen.dart';
 import 'package:liquid_ui/liquid_controller.dart';
 import 'package:provider/provider.dart';

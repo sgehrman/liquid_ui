@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_shared/flutter_shared.dart';
+import 'package:dfc_flutter/dfc_flutter.dart';
 import 'package:liquid_ui/liquid_device.dart';
 import 'package:liquid_ui/speed_menu.dart';
 
@@ -87,7 +87,7 @@ class LiquidController extends ChangeNotifier {
   }
 
   Future<void> updateDevices() async {
-    final result = await runCommand(arguments: ['list', '-v', '--json']);
+    final result = await runCommand(arguments: ['list', '-v', '--json' ]);
 
     if (Utils.isNotEmpty(result)) {
       final List<Map<String, dynamic>> devices =
