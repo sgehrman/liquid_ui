@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
-    @required this.title,
+    required this.title,
   });
 
   final String title;
@@ -88,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    lc.result ?? 'none',
+                    lc.result,
                     style: Theme.of(context).textTheme.caption,
                   ),
                 ],

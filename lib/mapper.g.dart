@@ -6,26 +6,26 @@ import 'package:liquid_ui/liquid_device.dart';
 
 final _liquiddeviceMapper = JsonObjectMapper(
   (CustomJsonMapper mapper, Map<String, dynamic> json) => LiquidDevice(
-    vendorId: mapper.applyFromJsonConverter(json['vendor_id']),
-    productId: mapper.applyFromJsonConverter(json['product_id']),
-    releaseNumber: mapper.applyFromJsonConverter(json['release_number']),
-    serialNumber: mapper.applyFromJsonConverter(json['serial_number']),
-    bus: mapper.applyFromJsonConverter(json['bus']),
-    address: mapper.applyFromJsonConverter(json['address']),
-    port: mapper.applyFromJsonConverter(json['port']),
-    driver: mapper.applyFromJsonConverter(json['driver']),
-    description: mapper.applyFromJsonConverter(json['description']),
+    vendorId: mapper.applyDynamicFromJsonConverter(json['vendor_id']) ?? 0,
+    productId: mapper.applyDynamicFromJsonConverter(json['product_id']) ?? 0,
+    releaseNumber: mapper.applyDynamicFromJsonConverter(json['release_number']) ?? 0,
+    serialNumber: mapper.applyDynamicFromJsonConverter(json['serial_number']) ?? '',
+    bus: mapper.applyDynamicFromJsonConverter(json['bus']) ?? '',
+    address: mapper.applyDynamicFromJsonConverter(json['address']) ?? '',
+    port: mapper.applyDynamicFromJsonConverter(json['port']) ?? 0,
+    driver: mapper.applyDynamicFromJsonConverter(json['driver']) ?? '',
+    description: mapper.applyDynamicFromJsonConverter(json['description']) ?? '',
   ),
   (CustomJsonMapper mapper, LiquidDevice instance) => <String, dynamic>{
-    'vendor_id': mapper.applyFromInstanceConverter(instance.vendorId),
-    'product_id': mapper.applyFromInstanceConverter(instance.productId),
-    'release_number': mapper.applyFromInstanceConverter(instance.releaseNumber),
-    'serial_number': mapper.applyFromInstanceConverter(instance.serialNumber),
-    'bus': mapper.applyFromInstanceConverter(instance.bus),
-    'address': mapper.applyFromInstanceConverter(instance.address),
-    'port': mapper.applyFromInstanceConverter(instance.port),
-    'driver': mapper.applyFromInstanceConverter(instance.driver),
-    'description': mapper.applyFromInstanceConverter(instance.description),
+    'vendor_id': mapper.applyDynamicFromInstanceConverter(instance.vendorId),
+    'product_id': mapper.applyDynamicFromInstanceConverter(instance.productId),
+    'release_number': mapper.applyDynamicFromInstanceConverter(instance.releaseNumber),
+    'serial_number': mapper.applyDynamicFromInstanceConverter(instance.serialNumber),
+    'bus': mapper.applyDynamicFromInstanceConverter(instance.bus),
+    'address': mapper.applyDynamicFromInstanceConverter(instance.address),
+    'port': mapper.applyDynamicFromInstanceConverter(instance.port),
+    'driver': mapper.applyDynamicFromInstanceConverter(instance.driver),
+    'description': mapper.applyDynamicFromInstanceConverter(instance.description),
   },
 );
 
@@ -34,6 +34,6 @@ void init() {
 
   
 
-  JsonMapper.registerListCast((value) => value?.cast<LiquidDevice>()?.toList());
+  JsonMapper.registerListCast((value) => value?.cast<LiquidDevice>().toList());
 }
     

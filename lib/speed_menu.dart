@@ -1,5 +1,9 @@
+<<<<<<< Updated upstream
 import 'package:flutter/material.dart';
 import 'package:dfc_flutter/dfc_flutter.dart';
+=======
+import 'package:flutter/material.dart' hide MenuItem;
+>>>>>>> Stashed changes
 
 // --speed
 // slowest, slower, normal, faster and fastest
@@ -13,7 +17,7 @@ enum AnimationSpeed {
 }
 
 class AnimationSpeedMenuItem {
-  AnimationSpeedMenuItem({this.title, this.speed});
+  AnimationSpeedMenuItem({required this.title, required this.speed});
   String title;
   AnimationSpeed speed;
 
@@ -22,19 +26,23 @@ class AnimationSpeedMenuItem {
 
   static List<AnimationSpeedMenuItem> items = <AnimationSpeedMenuItem>[
     AnimationSpeedMenuItem(
-        title: 'Slowest speed', speed: AnimationSpeed.slowest),
+      title: 'Slowest speed',
+      speed: AnimationSpeed.slowest,
+    ),
     AnimationSpeedMenuItem(title: 'Slower speed', speed: AnimationSpeed.slower),
     AnimationSpeedMenuItem(title: 'Normal speed', speed: AnimationSpeed.normal),
     AnimationSpeedMenuItem(title: 'Faster speed', speed: AnimationSpeed.faster),
     AnimationSpeedMenuItem(
-        title: 'Fastest speed', speed: AnimationSpeed.fastest),
+      title: 'Fastest speed',
+      speed: AnimationSpeed.fastest,
+    ),
   ];
 }
 
 class AnimationSpeedMenu extends StatelessWidget {
   const AnimationSpeedMenu({
-    @required this.onItemSelected,
-    @required this.selectedItem,
+    required this.onItemSelected,
+    required this.selectedItem,
   });
 
   final void Function(AnimationSpeedMenuItem) onItemSelected;
@@ -67,13 +75,17 @@ class AnimationSpeedMenu extends StatelessWidget {
     final List<PopupMenuItem<AnimationSpeedMenuItem>> menuItems = [];
 
     for (final item in AnimationSpeedMenuItem.items) {
-      menuItems.add(PopupMenuItem<AnimationSpeedMenuItem>(
-        value: item,
-        child: MenuItem(
-          icon: const Icon(Icons.compare),
-          name: item.title,
+      menuItems.add(
+        PopupMenuItem<AnimationSpeedMenuItem>(
+          value: item,
+          child: Row(
+            children: [
+              const Icon(Icons.compare),
+              Text(item.title),
+            ],
+          ),
         ),
-      ));
+      );
     }
 
     return PopupMenuButton<AnimationSpeedMenuItem>(

@@ -1,5 +1,9 @@
+import 'package:dfc_flutter/dfc_flutter.dart';
 import 'package:flutter/material.dart';
+<<<<<<< Updated upstream
 import 'package:dfc_flutter/dfc_flutter_web.dart';
+=======
+>>>>>>> Stashed changes
 import 'package:liquid_ui/liquid_controller.dart';
 import 'package:liquid_ui/liquid_device.dart';
 import 'package:liquid_ui/speed_menu.dart';
@@ -7,7 +11,7 @@ import 'package:liquid_ui/two_colors.dart';
 import 'package:provider/provider.dart';
 
 class LiquidDeviceCard extends StatefulWidget {
-  const LiquidDeviceCard({@required this.device});
+  const LiquidDeviceCard({required this.device});
 
   final LiquidDevice device;
 
@@ -17,8 +21,8 @@ class LiquidDeviceCard extends StatefulWidget {
 
 class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
   double _fanSpeed = 0;
-  Color _startColor;
-  Color _endColor;
+  Color? _startColor = Colors.cyan;
+  Color? _endColor = Colors.pink;
 
   Widget _buttonsForDevice() {
     if (widget.device.isNZXTSmartDeviceV1 ||
@@ -31,8 +35,8 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
             startColor: _startColor,
             endColor: _endColor,
             onChange: (start, end) {
-              _startColor = start;
-              _endColor = end;
+              _startColor = start ?? Colors.cyan;
+              _endColor = end ?? Colors.pink;
 
               setState(() {});
             },
@@ -52,8 +56,8 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
             startColor: _startColor,
             endColor: _endColor,
             onChange: (start, end) {
-              _startColor = start;
-              _endColor = end;
+              _startColor = start ?? Colors.cyan;
+              _endColor = end ?? Colors.pink;
 
               setState(() {});
             },
@@ -64,7 +68,7 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
       );
     }
 
-    return NothingWidget();
+    return const NothingWidget();
   }
 
   List<Widget> _nzxtCaseFanSlider() {
@@ -93,10 +97,10 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
     final List<CommandSpec> result = [];
 
     String startHex = _startColor != null
-        ? _startColor.value.toRadixString(16)
+        ? _startColor!.value.toRadixString(16)
         : Colors.white.value.toRadixString(16);
     String endHex = _endColor != null
-        ? _endColor.value.toRadixString(16)
+        ? _endColor!.value.toRadixString(16)
         : Colors.blue.value.toRadixString(16);
 
     startHex = startHex.substring(2);
@@ -288,10 +292,10 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
     final LiquidController lc = context.read<LiquidController>();
 
     String startHex = _startColor != null
-        ? _startColor.value.toRadixString(16)
+        ? _startColor!.value.toRadixString(16)
         : Colors.white.value.toRadixString(16);
     String endHex = _endColor != null
-        ? _endColor.value.toRadixString(16)
+        ? _endColor!.value.toRadixString(16)
         : Colors.blue.value.toRadixString(16);
 
     startHex = startHex.substring(2);

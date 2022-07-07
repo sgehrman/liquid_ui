@@ -8,4 +8,7 @@
   "explorer.compactFolders": false,
   "dart.closingLabels": false,
   "workbench.editor.wrapTabs": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  }
 }

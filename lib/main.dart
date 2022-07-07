@@ -1,9 +1,13 @@
-import 'package:flutter/material.dart';
 import 'package:dfc_flutter/dfc_flutter.dart';
+import 'package:flutter/material.dart';
+<<<<<<< Updated upstream
+import 'package:dfc_flutter/dfc_flutter.dart';
+=======
+>>>>>>> Stashed changes
 import 'package:liquid_ui/home_screen.dart';
 import 'package:liquid_ui/liquid_controller.dart';
+import 'package:liquid_ui/mapper.g.dart' as mapper;
 import 'package:provider/provider.dart';
-import 'mapper.g.dart' as mapper;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

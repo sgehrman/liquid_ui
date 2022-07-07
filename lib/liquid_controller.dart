@@ -1,8 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:dfc_flutter/dfc_flutter.dart';
+import 'package:flutter/material.dart';
+<<<<<<< Updated upstream
+import 'package:dfc_flutter/dfc_flutter.dart';
+=======
+>>>>>>> Stashed changes
 import 'package:liquid_ui/liquid_device.dart';
 import 'package:liquid_ui/speed_menu.dart';
 
@@ -29,8 +33,8 @@ class LiquidController extends ChangeNotifier {
   int get exitCode => _exitCode;
 
   Future<String> runCommand({
-    LiquidDevice device,
-    @required List<String> arguments,
+    LiquidDevice? device,
+    required List<String> arguments,
     bool addSpeed = false,
   }) async {
     List<String> args = [];
@@ -52,7 +56,9 @@ class LiquidController extends ChangeNotifier {
     }
 
     args.addAll(arguments);
-    print(args.join(' '));
+    print(
+      'liquidctl ${args.join(' ')}',
+    );
 
     // liquidctl -d 1 set led color breathing 440022 002244
     // liquidctl -d 1 set led color fading 440022 002244
@@ -104,20 +110,24 @@ class LiquidController extends ChangeNotifier {
   }
 
   Future<void> initialize(LiquidDevice device) async {
-    await runCommand(arguments: [
-      'initialize',
-      '--bus',
-      device.bus,
-      '--address',
-      device.address,
-    ]);
+    await runCommand(
+      arguments: [
+        'initialize',
+        '--bus',
+        device.bus,
+        '--address',
+        device.address,
+      ],
+    );
   }
 
   Future<void> updateStatus() async {
-    final status = await runCommand(arguments: [
-      'status',
-      '--json',
-    ]);
+    final status = await runCommand(
+      arguments: [
+        'status',
+        '--json',
+      ],
+    );
 
     if (Utils.isNotEmpty(status)) {
       // fff
@@ -127,11 +137,14 @@ class LiquidController extends ChangeNotifier {
 
   // for NZXT case fans
   void setFanSpeed(LiquidDevice device, int speed) {
-    runCommand(device: device, arguments: [
-      'set',
-      'sync',
-      'speed',
-      speed.toString(),
-    ]);
+    runCommand(
+      device: device,
+      arguments: [
+        'set',
+        'sync',
+        'speed',
+        speed.toString(),
+      ],
+    );
   }
 }

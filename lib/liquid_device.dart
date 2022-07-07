@@ -21,15 +21,15 @@ class LiquidDevice {
   String description;
 
   LiquidDevice({
-    this.vendorId,
-    this.productId,
-    this.releaseNumber,
-    this.serialNumber,
-    this.bus,
-    this.address,
-    this.port,
-    this.driver,
-    this.description,
+    this.vendorId = 0,
+    this.productId = 0,
+    this.releaseNumber = 0,
+    this.serialNumber = '',
+    this.bus = '',
+    this.address = '',
+    this.port = 0,
+    this.driver = '',
+    this.description = '',
   });
 
   bool get isNZXTSmartDeviceV1 {
@@ -45,11 +45,11 @@ class LiquidDevice {
   }
 
   Map<String, dynamic> toMap() {
-    return JsonMapper.serializeToMap(this);
+    return JsonMapper.serializeToMap(this) ?? <String, dynamic>{};
   }
 
   factory LiquidDevice.fromMap(Map<String, dynamic> map) {
-    return JsonMapper.deserializeFromMap<LiquidDevice>(map);
+    return JsonMapper.deserializeFromMap<LiquidDevice>(map)!;
   }
 
   @override

@@ -1,18 +1,18 @@
-import 'package:flutter/material.dart';
 import 'package:dfc_flutter/dfc_flutter.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 class TwoColors extends StatefulWidget {
   const TwoColors({
-    @required this.startColor,
-    @required this.endColor,
-    @required this.onChange,
+    required this.startColor,
+    required this.endColor,
+    required this.onChange,
   });
 
-  final Color startColor;
-  final Color endColor;
+  final Color? startColor;
+  final Color? endColor;
 
-  final void Function(Color start, Color end) onChange;
+  final void Function(Color? start, Color? end) onChange;
 
   @override
   _TwoColorsState createState() => _TwoColorsState();
@@ -62,16 +62,16 @@ class _TwoColorsState extends State<TwoColors> {
 
 class ColorEditorDialog extends StatefulWidget {
   const ColorEditorDialog({
-    @required this.color,
+    required this.color,
   });
 
   final Color color;
 
-  static Future<Color> show(
+  static Future<Color?> show(
     BuildContext context,
-    Color color,
+    Color? color,
   ) {
-    return showDialog<Color>(
+    return showDialog<Color?>(
       context: context,
       barrierDismissible: true,
       builder: (context) => SimpleDialog(
@@ -83,7 +83,7 @@ class ColorEditorDialog extends StatefulWidget {
           ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 600.0),
             child: SingleChildScrollView(
-              child: ColorEditorDialog(color: color),
+              child: ColorEditorDialog(color: color ?? Colors.blue),
             ),
           ),
         ],
@@ -96,7 +96,7 @@ class ColorEditorDialog extends StatefulWidget {
 }
 
 class _ColorEditorDialogState extends State<ColorEditorDialog> {
-  HSVColor currentColor;
+  HSVColor currentColor = HSVColor.fromColor(Colors.cyan);
 
   @override
   void initState() {
@@ -104,7 +104,7 @@ class _ColorEditorDialogState extends State<ColorEditorDialog> {
 
     // color picker crashes if you send nil.  An invalid themeset might have null colors from bad scan etc.
     currentColor = HSVColor.fromColor(
-      widget.color ?? Colors.white,
+      widget.color,
     );
   }
 
@@ -117,27 +117,32 @@ class _ColorEditorDialogState extends State<ColorEditorDialog> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        HsvColorPicker(
-          showLabel: false,
+        ColorPicker(
           pickerAreaBorderRadius: const BorderRadius.all(Radius.circular(8)),
           enableAlpha: false,
-          pickerColor: currentColor,
-          onColorChanged: changeColorHsv,
+          pickerColor: currentColor.toColor(),
+          pickerHsvColor: currentColor,
+          onHsvColorChanged: changeColorHsv,
+          onColorChanged: (c) => changeColorHsv(HSVColor.fromColor(c)),
         ),
         Text(currentColor.toString()),
         TextButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Text('Cancel',
-              style: TextStyle(color: Theme.of(context).accentColor)),
+          child: Text(
+            'Cancel',
+            style: TextStyle(color: Theme.of(context).colorScheme.secondary),
+          ),
         ),
         TextButton(
           onPressed: () {
             Navigator.of(context).pop(currentColor.toColor());
           },
-          child: Text('OK',
-              style: TextStyle(color: Theme.of(context).primaryColor)),
+          child: Text(
+            'OK',
+            style: TextStyle(color: Theme.of(context).primaryColor),
+          ),
         ),
       ],
     );
