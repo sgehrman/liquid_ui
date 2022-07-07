@@ -1,9 +1,4 @@
-<<<<<<< Updated upstream
-import 'package:flutter/material.dart';
-import 'package:dfc_flutter/dfc_flutter.dart';
-=======
 import 'package:flutter/material.dart' hide MenuItem;
->>>>>>> Stashed changes
 
 // --speed
 // slowest, slower, normal, faster and fastest

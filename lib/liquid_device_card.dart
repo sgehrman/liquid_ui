@@ -1,9 +1,5 @@
 import 'package:dfc_flutter/dfc_flutter.dart';
 import 'package:flutter/material.dart';
-<<<<<<< Updated upstream
-import 'package:dfc_flutter/dfc_flutter_web.dart';
-=======
->>>>>>> Stashed changes
 import 'package:liquid_ui/liquid_controller.dart';
 import 'package:liquid_ui/liquid_device.dart';
 import 'package:liquid_ui/speed_menu.dart';
@@ -112,138 +108,160 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
       channel = 'sync';
     }
 
-    result.add(CommandSpec(
-      name: 'Breathing',
-      addSpeed: true,
-      arguments: [
-        'set',
-        channel,
-        'color',
-        'breathing',
-        startHex,
-        endHex,
-      ],
-    ));
-
-    result.add(CommandSpec(
-      name: 'Fading',
-      addSpeed: true,
-      arguments: [
-        'set',
-        channel,
-        'color',
-        'fading',
-        startHex,
-        endHex,
-      ],
-    ));
-
-    result.add(CommandSpec(
-      name: 'Fixed',
-      arguments: [
-        'set',
-        channel,
-        'color',
-        'fixed',
-        startHex,
-      ],
-    ));
-
-    result.add(CommandSpec(
-      name: 'Spectrum Wave',
-      arguments: [
-        'set',
-        channel,
-        'color',
-        'spectrum-wave',
-      ],
-      addSpeed: true,
-    ));
-
-    result.add(CommandSpec(
-      name: 'Candle',
-      addSpeed: true,
-      arguments: [
-        'set',
-        channel,
-        'color',
-        'candle',
-        startHex,
-      ],
-    ));
-
-    result.add(CommandSpec(
-      name: 'Alternating',
-      addSpeed: true,
-      arguments: [
-        'set',
-        channel,
-        'color',
-        'alternating',
-        startHex,
-        endHex,
-      ],
-    ));
-
-    result.add(CommandSpec(
-      name: 'Marquee',
-      addSpeed: true,
-      arguments: [
-        'set',
-        channel,
-        'color',
-        'marquee-5',
-        startHex,
-      ],
-    ));
-
-    result.add(CommandSpec(
-      name: 'Super Fixed',
-      arguments: [
-        'set',
-        channel,
-        'color',
-        'super-fixed',
-        startHex,
-        endHex,
-      ],
-    ));
-
-    result.add(CommandSpec(
-      name: 'Off',
-      arguments: [
-        'set',
-        channel,
-        'color',
-        'off',
-      ],
-    ));
-
-    result.add(CommandSpec(
-      name: 'Pulse',
-      addSpeed: true,
-      arguments: [
-        'set',
-        channel,
-        'color',
-        'pulse',
-        startHex,
-        endHex,
-      ],
-    ));
-
-    if (widget.device.isNZXTSmartDeviceV1) {
-      result.add(CommandSpec(
-        name: 'Wings',
+    result.add(
+      CommandSpec(
+        name: 'Breathing',
         addSpeed: true,
         arguments: [
           'set',
           channel,
           'color',
-          'wings',
+          'breathing',
+          startHex,
+          endHex,
+        ],
+      ),
+    );
+
+    result.add(
+      CommandSpec(
+        name: 'Fading',
+        addSpeed: true,
+        arguments: [
+          'set',
+          channel,
+          'color',
+          'fading',
+          startHex,
+          endHex,
+        ],
+      ),
+    );
+
+    result.add(
+      CommandSpec(
+        name: 'Fixed',
+        arguments: [
+          'set',
+          channel,
+          'color',
+          'fixed',
           startHex,
         ],
-      ));
+      ),
+    );
+
+    result.add(
+      CommandSpec(
+        name: 'Spectrum Wave',
+        arguments: [
+          'set',
+          channel,
+          'color',
+          'spectrum-wave',
+        ],
+        addSpeed: true,
+      ),
+    );
+
+    result.add(
+      CommandSpec(
+        name: 'Candle',
+        addSpeed: true,
+        arguments: [
+          'set',
+          channel,
+          'color',
+          'candle',
+          startHex,
+        ],
+      ),
+    );
+
+    result.add(
+      CommandSpec(
+        name: 'Alternating',
+        addSpeed: true,
+        arguments: [
+          'set',
+          channel,
+          'color',
+          'alternating',
+          startHex,
+          endHex,
+        ],
+      ),
+    );
+
+    result.add(
+      CommandSpec(
+        name: 'Marquee',
+        addSpeed: true,
+        arguments: [
+          'set',
+          channel,
+          'color',
+          'marquee-5',
+          startHex,
+        ],
+      ),
+    );
+
+    result.add(
+      CommandSpec(
+        name: 'Super Fixed',
+        arguments: [
+          'set',
+          channel,
+          'color',
+          'super-fixed',
+          startHex,
+          endHex,
+        ],
+      ),
+    );
+
+    result.add(
+      CommandSpec(
+        name: 'Off',
+        arguments: [
+          'set',
+          channel,
+          'color',
+          'off',
+        ],
+      ),
+    );
+
+    result.add(
+      CommandSpec(
+        name: 'Pulse',
+        addSpeed: true,
+        arguments: [
+          'set',
+          channel,
+          'color',
+          'pulse',
+          startHex,
+          endHex,
+        ],
+      ),
+    );
+
+    if (widget.device.isNZXTSmartDeviceV1) {
+      result.add(
+        CommandSpec(
+          name: 'Wings',
+          addSpeed: true,
+          arguments: [
+            'set',
+            channel,
+            'color',
+            'wings',
+            startHex,
+          ],
+        ),
+      );
     }
 
     if (widget.device.isNZXTSmartDeviceV2) {
@@ -431,8 +449,8 @@ class _LiquidDeviceCardState extends State<LiquidDeviceCard> {
 
 class CommandSpec {
   CommandSpec({
-    @required this.name,
-    @required this.arguments,
+    required this.name,
+    required this.arguments,
     this.addSpeed = false,
   });
 
